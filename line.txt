@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Document</title>
+</head>
+<body>
+<canvas width='760' height='760' style='border:1px solid black' id='can'></canvas>
+
+
+<script>
+        var c = document.getElementById('can')
+        var ctx = c.getContext('2d')
+
+        ctx.lineWidth = 2
+        ctx.lineCap = 'but'
+        ctx.lineJoin = 'miter'
+
+        function line() {
+            ctx.beginPath()
+            ctx.moveTo(278, 105)
+            ctx.lineTo(278, 158)
+
+            ctx.moveTo(608, 105)
+            ctx.lineTo(608, 127)
+            ctx.lineTo(698, 127)
+            ctx.lineTo(698, 158)
+
+            ctx.strokeStyle = '#00ddff'
+            ctx.stroke()
+        }
+
+
+        function drawPoint(x, y) {
+            if (c == null)return false
+            var g1 = ctx.createRadialGradient(x, y, 0, x, y, x)
+            g1.addColorStop(0.1, '#00ddff')
+            g1.addColorStop(1, '#00ddff')
+            ctx.fillStyle = g1
+            ctx.beginPath()
+            ctx.arc(x, y, 4, 0, Math.PI * 2, true)
+            ctx.closePath()
+            ctx.fill()
+        }
+        line()
+        drawPoint(278, 105)
+        drawPoint(608, 105)
+        var speed = 1;
+        function clear() {
+            ctx.clearRect(0, 0, 760, 760);
+        }
+        var a = {x: 278, y: 105,initX:278,initY:105}
+        var b = {x: 278, y: 158}
+
+        function run() {
+            clear()
+            if (arguments.length == 2) {
+                if (arguments[1].x - arguments[0].x == 0) {
+                    var y = arguments[1].y - arguments[0].y
+                    clear()
+//                    if(y>0){
+//                        arguments[0].y +=speed
+//                    }
+                    speed = y/(Math.abs(y))*speed
+                    arguments[0].y+=speed
+                    console.log(arguments[0].y )
+//                    if(Math.abs(arguments[0].y) == Math.abs(arguments[1].y)){
+//                        arguments[0].y = arguments[0].initY
+//                    }
+                    ctx.beginPath();
+                    ctx.arc(arguments[0].x, arguments[0].y, 4, 0, Math.PI * 2, true)
+                    ctx.closePath();
+                    ctx.fill();
+                }
+            }
+        }
+        	setInterval(function(){
+                run(a, b)
+        		line()
+        	},50)
+
+
+//    var c = document.getElementById('can')
+//    var ctx = c.getContext('2d')
+//
+//    ctx.lineWidth = 2
+//    ctx.lineCap = 'but'
+//    ctx.lineJoin = 'miter'
+//
+//    function line() {
+//        ctx.beginPath()
+//        ctx.moveTo(278, 105)
+//        ctx.lineTo(278, 158)
+//
+//        ctx.moveTo(608, 105)
+//        ctx.lineTo(608, 127)
+//        ctx.lineTo(698, 127)
+//        ctx.lineTo(698, 158)
+//
+//        ctx.strokeStyle = '#00ddff'
+//        ctx.stroke()
+//    }
+//
+//
+//    function drawPoint(x, y) {
+//        if (c == null)return false
+//        var g1 = ctx.createRadialGradient(x, y, 0, x, y, x)
+//        g1.addColorStop(0.1, '#00ddff')
+//        g1.addColorStop(1, '#00ddff')
+//        ctx.fillStyle = g1
+//        ctx.beginPath()
+//        ctx.arc(x, y, 4, 0, Math.PI * 2, true)
+//        ctx.closePath()
+//        ctx.fill()
+//    }
+//    line()
+//    drawPoint(278, 105)
+//    drawPoint(608, 105)
+//    var speed = 0;
+//    var startPointX = 278;
+//    var startPointY = 105;
+//    var onePoint = {startPointX: 278, startPointY: 105};
+//    var endPoint = {startPointX: 278, startPointY: 158};
+//    function run(cxt) {
+//        speed = 1;
+//        cxt.clearRect(0, 0, 1024, 728);
+//        if (arguments[1].startPointX == arguments[2].startPointX) {
+//            var y = arguments[2].startPointY - arguments[1].startPointY
+//            startPointY += y / Math.abs(y);
+//            if (startPointY == arguments[2].startPointY) {
+//                startPointY = arguments[1].startPointY;
+//            }
+//        }
+//
+//        cxt.beginPath();
+//        cxt.arc(startPointX, startPointY, 4, 0, 2 * Math.PI, true);
+//        cxt.closePath();
+//        cxt.fill();
+//    }
+//
+//
+//    setInterval(function () {
+//        run(ctx, onePoint, endPoint)
+//        line()
+//    }, 50)
+</script>
+</body>
+</html>
